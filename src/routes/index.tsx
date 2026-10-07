@@ -61,8 +61,13 @@ function CalculatorPage() {
 
   const inputDigit = useCallback((digit: string) => {
     setState((s) => {
-      if (s.current === "Error" || s.justEvaluated) {
-        return { ...INITIAL, current: digit };
+      if (s.current === "Error") return { ...INITIAL, current: digit };
+      if (s.justEvaluated) {
+        // After an operator: keep the pending operation, start the next operand.
+        // After "=": start a fresh calculation.
+        return s.operator
+          ? { ...s, current: digit, justEvaluated: false }
+          : { ...INITIAL, current: digit };
       }
       if (s.current.replace(/[-.]/g, "").length >= 12) return s;
       return { ...s, current: s.current === "0" ? digit : s.current + digit };
@@ -71,7 +76,12 @@ function CalculatorPage() {
 
   const inputDot = useCallback(() => {
     setState((s) => {
-      if (s.current === "Error" || s.justEvaluated) return { ...INITIAL, current: "0." };
+      if (s.current === "Error") return { ...INITIAL, current: "0." };
+      if (s.justEvaluated) {
+        return s.operator
+          ? { ...s, current: "0.", justEvaluated: false }
+          : { ...INITIAL, current: "0." };
+      }
       if (s.current.includes(".")) return s;
       return { ...s, current: s.current + "." };
     });
