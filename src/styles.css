@@ -11,6 +11,8 @@
  */
 
 @theme inline {
+  --font-sans: "Inter", sans-serif;
+  --font-grotesk: "Space Grotesk", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

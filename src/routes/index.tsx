@@ -189,7 +189,7 @@ function CalculatorPage() {
           </div>
           <div
             key={display}
-            className="display-pop mt-1 flex items-baseline justify-end overflow-hidden"
+            className="display-pop mt-1 flex items-baseline justify-end overflow-hidden font-grotesk"
           >
             <span className="text-[40px] leading-none font-semibold tracking-tight tabular-nums">
               {intPart}
